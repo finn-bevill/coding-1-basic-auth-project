@@ -2,34 +2,37 @@
 APP PLANNING & DESIGN
 =========================
 
-1. PROJECT NAME & THEME
+1. PROJECT IDEA
 -------------------------
-- What is your app called, and what type of app is it?  
-- What style or vibe do you want users to experience?
-- What about your app will require a log-in structure?
+- What is your app called?
+- What type of app is it? (journal, listings, notes, etc.)
+- What will users use your app for?
 
-2. CORE FUNCTIONALITY
+2. DATA MODEL (WHAT ARE YOU STORING?)
 -------------------------
-- What are the essential features your app must have?  
-- What optional features could make your app more interactive or personalized?
+- What is a single “entry” in your app?
+- What fields will each entry have? (title, content, date, etc.)
+- How will entries be connected to a user?
 
-3. SECRET OR PERSONALIZED CONTENT
-
+3. CORE FEATURES (CRUD)
 -------------------------
-- What content will users see after logging in?  
-- Will this content change depending on who is using the app (admin, user, special user?)
+- What can users CREATE?
+- What will they see on the main page (READ)?
+- What can users EDIT (UPDATE)?
+- What can users DELETE?
 
-4. USER EXPERIENCE (UX) DESIGN
+4. USER FLOW
+-------------------------
+- What happens after a user logs in?
+- What pages/routes will your app need? (dashboard, create, edit, etc.)
+- Describe a typical user experience from login → using your app
+
+5. USER EXPERIENCE (UX)
 -------------------------
 - How should your app look and feel?
 - How will users navigate between pages?
+- How will entries be displayed (list, cards, etc.)?
 
-5. SECURITY FEATURES
+6. OPTIONAL FEATURES
 -------------------------
-- What password and authentication rules will you enforce?  
-- How will you protect secret pages from unauthorized access?
-
-6. OPTIONAL CREATIVE ENHANCEMENTS
--------------------------
-- What customization or fun features could users enjoy?
-- Are there interactive elements, like games, quizzes, or badges, you could include?
+- What extra features might you add? (search, tags, sorting, etc.)
