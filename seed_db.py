@@ -25,6 +25,10 @@ def seed_database():
         ("bob", "SecurePass456@"),
         ("charlie", "MyPassword789#"),
     ]
+
+    sample_entries = [
+        ("Liam Arnold", "L&N", "11th", "11.40 Seconds")
+    ]
     
     try:
         for username, password in sample_users:
@@ -34,6 +38,23 @@ def seed_database():
                 (username, hashed_pw)
             )
             print(f"Created user: {username}")
+        
+        conn.commit()
+        print("\nDatabase seeding complete!")
+    
+    except Exception as e:
+        conn.rollback()
+        print(f"Error: {e}")
+    
+
+    try:
+        for runner, school, grade, time in sample_entries:
+            hashed_pw = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
+            conn.execute(
+                "INSERT INTO entries (runner, school, grade, time) VALUES (?, ?)",
+                (runner, hashed_pw)
+            )
+            print(f"Created user: {runner}")
         
         conn.commit()
         print("\nDatabase seeding complete!")

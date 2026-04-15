@@ -14,5 +14,14 @@ def init_db():
             password TEXT
         )
     """)
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS entries (
+            runner TEXT PRIMARY KEY,
+            school TEXT,
+            grade TEXT,
+            time TEXT
+        )
+    """)
+
     conn.commit()
     conn.close()
