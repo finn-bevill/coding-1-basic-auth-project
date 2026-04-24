@@ -38,7 +38,7 @@ def login():
 
         if user and bcrypt.checkpw(password.encode("utf-8"), user["password"]):
             session["user"] = username
-            return redirect(url_for("secret"))
+            return redirect(url_for("dashboard"))
         else:
             error = "Incorrect username or password"
 
@@ -75,8 +75,8 @@ def register():
 
     return render_template("register.html", error=error)
 
-@app.route("/secret")
-def secret():
+@app.route("/dashboard")
+def dashboard():
     # TODO: RENAME THIS ROUTE TO /dashboard
 
     if "user" not in session:
@@ -100,7 +100,7 @@ def secret():
     # return render_template("dashboard.html", entries=entries, username=session["user"])
 
     # TEMPORARY (remove later)
-    return render_template("secret.html", username=session["user"])
+    return render_template("dashboard.html", username=session["user"])
 
 
 # ---------- CREATE ----------
