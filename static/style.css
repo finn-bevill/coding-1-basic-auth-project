@@ -43,6 +43,11 @@ a {
     color: #333;
     text-decoration: none;
 }
+
+a:hover {
+    text-decoration: underline;
+    color: #7393be
+}
 .error {
     color: red;
     margin-top: 10px;
