@@ -9,7 +9,7 @@
 <h3>Welcome, {{ username }}!</h3>
 
 <!-- TODO: Add a button or link to create a new entry -->
-<!-- Example: <a href="/create">Create New Entry</a> -->
+<a href="/create">Create New Entry</a>
 
 <br><br>
 
@@ -19,8 +19,10 @@
 
 {% for entry in entries %}
     <div>
-        <h3>{{ entry['title'] }}</h3>
-        <p>{{ entry['content'] }}</p>
+        <h3>{{ entry['runner'] }}</h3>
+        <p>{{ entry['school'] }}</p>
+        <p>{{ entry['grade'] }}</p>
+        <p>{{ entry['time'] }}</p>
 
         <!-- TODO: Add Edit link -->
         <!-- Example: /edit/{{ entry['id'] }} -->
