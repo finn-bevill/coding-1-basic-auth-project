@@ -116,13 +116,27 @@ def create():
 
     if request.method == "POST":
         # TODO: Get form data (title, content)
-
+        runner = request.form["runner"].strip()
+        school = request.form["school"].strip()
+        grade = request.form["grade"].strip()
+        time = request.form["time"].strip()
         # TODO: Connect to database
+        if not runner or not school or not grade or not time:
+            error = "All fields are required"
+        else:
+            conn = get_db()
+            try:
+                conn.execute(
+                    "INSERT INTO entries (runner, school, grade, time) VALUES (?, ?, ?, ?)",
+                    (runner, school, grade, time)
+                )
+                conn.commit()
 
-        # TODO: Insert into entries table
-        # IMPORTANT: include session["user"]
-
-        # TODO: Commit and close
+                return redirect(url_for("dashboard"))
+            except:
+                conn.rollback()
+            finally:
+                conn.close()
 
         return redirect(url_for("dashboard"))
 
