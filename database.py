@@ -16,7 +16,8 @@ def init_db():
     """)
     conn.execute("""
         CREATE TABLE IF NOT EXISTS entries (
-            runner TEXT PRIMARY KEY,
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            runner TEXT,
             school TEXT,
             grade TEXT,
             time TEXT
