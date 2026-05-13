@@ -20,7 +20,8 @@ def init_db():
             runner TEXT,
             school TEXT,
             grade TEXT,
-            time TEXT
+            time TEXT,
+            user TEXT
         )
     """)
 

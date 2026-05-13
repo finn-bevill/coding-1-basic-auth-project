@@ -16,6 +16,13 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 init_db()
 
+# Add logout route
+@app.route("/logout")
+def logout():
+    session.clear()
+    logging.info("User logged out")
+    return redirect(url_for("login"))
+
 # ---------- PASSWORD VALIDATION ----------
 def is_valid_password(password):
     return (
@@ -93,7 +100,8 @@ def dashboard():
     # TODO: Get all entries that belong to the logged-in user
     # Example:
     entries = conn.execute(
-        "SELECT * FROM entries"
+        "SELECT * FROM entries WHERE user=?",
+        (session["user"],)
     ).fetchall()
     logging.info(f"User {session['user']} fetched {len(entries)} entries")
 
@@ -109,102 +117,107 @@ def dashboard():
 
 
 # ---------- CREATE ----------
-# TODO: Create a route like /create
-# This page should:
-# - Show a form (GET)
-# - Save data to the database (POST)
-# - Redirect back to dashboard
-# NOTE: Remove the triple """ before and after each route to 'uncomment'
-
 @app.route("/create", methods=["GET", "POST"])
 def create():
     if "user" not in session:
         return redirect(url_for("login"))
 
+    error = ""
     if request.method == "POST":
-        # TODO: Get form data (title, content)
         runner = request.form["runner"].strip()
         school = request.form["school"].strip()
         grade = request.form["grade"].strip()
         time = request.form["time"].strip()
-        # TODO: Connect to database
+
         if not runner or not school or not grade or not time:
             error = "All fields are required"
         else:
             conn = get_db()
             try:
                 conn.execute(
-                    "INSERT INTO entries (runner, school, grade, time) VALUES (?, ?, ?, ?)",
-                    (runner, school, grade, time)
+                    "INSERT INTO entries (runner, school, grade, time, user) VALUES (?, ?, ?, ?, ?)",
+                    (runner, school, grade, time, session["user"])
                 )
                 conn.commit()
-                logging.info(f"Entry created: runner={runner}, school={school}, grade={grade}, time={time}")
-
+                logging.info(f"Entry created: runner={runner}, school={school}, grade={grade}, time={time}, user={session['user']}")
+                conn.close()
                 return redirect(url_for("dashboard"))
             except:
                 conn.rollback()
+                error = "Error creating entry"
+                logging.error(f"Error creating entry: {error}")
             finally:
                 conn.close()
 
-        return redirect(url_for("dashboard"))
-
-    return render_template("create.html")
+    return render_template("create.html", error=error)
 
 
 # ---------- UPDATE ----------
-# TODO: Create a route like /edit/<id>
-# This page should:
-# - Load existing data
-# - Show it in a form
-# - Update the database on submit
-
-"""
 @app.route("/edit/<int:id>", methods=["GET", "POST"])
 def edit(id):
     if "user" not in session:
         return redirect(url_for("login"))
 
-    # TODO: Connect to database
+    conn = get_db()
+    entry = conn.execute(
+        "SELECT * FROM entries WHERE id=? AND user=?",
+        (id, session["user"])
+    ).fetchone()
 
-    # TODO: Get entry WHERE id AND user
-    # This prevents editing other users' data
-
-    # if not entry:
-    #     return "Not allowed"
+    if not entry:
+        conn.close()
+        return "Not allowed"
 
     if request.method == "POST":
-        # TODO: Get updated form data
+        runner = request.form["runner"].strip()
+        school = request.form["school"].strip()
+        grade = request.form["grade"].strip()
+        time = request.form["time"].strip()
 
-        # TODO: Update database
-        # IMPORTANT: include id AND session["user"]
+        if not runner or not school or not grade or not time:
+            error = "All fields are required"
+            conn.close()
+            return render_template("edit.html", entry=entry, error=error)
 
-        # TODO: Commit and close
+        try:
+            conn.execute(
+                "UPDATE entries SET runner=?, school=?, grade=?, time=? WHERE id=? AND user=?",
+                (runner, school, grade, time, id, session["user"])
+            )
+            conn.commit()
+            logging.info(f"Entry {id} updated by user {session['user']}")
+        except:
+            conn.rollback()
+            logging.error(f"Error updating entry {id}")
+        finally:
+            conn.close()
 
         return redirect(url_for("dashboard"))
 
+    conn.close()
     return render_template("edit.html", entry=entry)
-"""
 
 # ---------- DELETE ----------
-# TODO: Create a route like /delete/<id>
-# This should:
-# - Delete an entry from the database
-# - Redirect back to dashboard
-
-"""
 @app.route("/delete/<int:id>")
 def delete(id):
     if "user" not in session:
         return redirect(url_for("login"))
 
-    # TODO: Connect to database
-
-    # TODO: Delete entry WHERE id AND user
-
-    # TODO: Commit and close
+    conn = get_db()
+    try:
+        conn.execute(
+            "DELETE FROM entries WHERE id=? AND user=?",
+            (id, session["user"])
+        )
+        conn.commit()
+        logging.info(f"Entry {id} deleted by user {session['user']}")
+    except:
+        conn.rollback()
+        logging.error(f"Error deleting entry {id}")
+    finally:
+        conn.close()
 
     return redirect(url_for("dashboard"))
-"""
 
 
 @app.route("/logout")
