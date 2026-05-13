@@ -27,10 +27,10 @@ def seed_database():
     ]
 
     sample_entries = [
-        ("Liam Arnold", "L&N", "11th", "11.33 Seconds"),
-        ("Blessing Shami", "L&N", "11th", "15.50 Years"),
-        ("Vonde Tobin", "L&N", "11th", "13.5 Seconds"),
-        ("Niko Resendes", "L&N", "11th", "14.5 Seconds"),
+        ("Liam Arnold", "L&N", "11th", "11.33 Seconds", "Liam Arnold"),
+        ("Blessing Shami", "L&N", "11th", "15.50 Years", "Blessing Shami"),
+        ("Vonde Tobin", "L&N", "11th", "13.5 Seconds", "VondeTobin"),
+        ("Niko Resendes", "L&N", "11th", "14.5 Seconds", "VondeTobin"),
     ]
     
     try:
@@ -45,12 +45,12 @@ def seed_database():
         conn.commit()
         print("\nDatabase seeding complete!")
     
-        for runner, school, grade, time in sample_entries:
+        for runner, school, grade, time, user in sample_entries:
             conn.execute(
-                "INSERT INTO entries (runner, school, grade, time) VALUES (?, ?, ?, ?)",
-                (runner, school, grade, time)
+                "INSERT INTO entries (runner, school, grade, time, user) VALUES (?, ?, ?, ?, ?)",
+                (runner, school, grade, time, user)
             )
-            print(f"Created entry: {runner}")
+            print(f"Created entry: {runner} for user: {user}")
         
         conn.commit()
         print("\nDatabase seeding complete!")

@@ -17,26 +17,22 @@
 <!-- The variable "entries" will come from your Flask route -->
 <!-- Example structure: -->
 
-{% for entry in entries %}
-    <div>
-        <h3>{{ entry['runner'] }}</h3>
-        <p>{{ entry['school'] }}</p>
-        <p>{{ entry['grade'] }}</p>
-        <p>{{ entry['time'] }}</p>
+{% if entries %}
+    {% for entry in entries %}
+        <div>
+            <h3>{{ entry['runner'] }}</h3>
+            <p>{{ entry['school'] }}</p>
+            <p>{{ entry['grade'] }}</p>
+            <p>{{ entry['time'] }}</p>
 
-        <!-- TODO: Add Edit link -->
-        <!-- Example: /edit/{{ entry['id'] }} -->
-         <a href="/edit/{{ entry['id'] }}">Edit</a>
-        <!-- TODO: Add Delete link -->
-        <!-- Example: /delete/{{ entry['id'] }} -->
-         <a href="/delete/{{ entry['id'] }}">Delete</a>
-
-    </div>
-    <hr>
-{% endfor %}
-
-<!-- TODO: If no entries exist, display a message like:
-"No entries yet!" -->
+            <a href="/edit/{{ entry['id'] }}">Edit</a>
+            <a href="/delete/{{ entry['id'] }}">Delete</a>
+        </div>
+        <hr>
+    {% endfor %}
+{% else %}
+    <p>No entries yet!</p>
+{% endif %}
 
 <br>
 
