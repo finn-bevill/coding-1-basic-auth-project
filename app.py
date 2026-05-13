@@ -93,10 +93,10 @@ def dashboard():
     # TODO: Get all entries that belong to the logged-in user
     # Example:
     entries = conn.execute(
-        "SELECT * FROM entries WHERE user=?",
+        "SELECT * FROM entries",
         (session["user"],)
     ).fetchall()
-    logging.info(f"User {session['user']} fetched {len(entries)} entries")
+    # logging.info(f"User {session['user']} fetched {len(entries)} entries")
 
     # TODO: Close the connection
     conn.close()
