@@ -21,9 +21,9 @@ def seed_database():
     
     # Sample users with passwords
     sample_users = [
-        ("alice", "Password123!"),
-        ("bob", "SecurePass456@"),
-        ("charlie", "MyPassword789#"),
+        ("Liam Arnold", "Choke123!"),
+        ("VondeTobin", "Chokester456@"),
+        ("Blessing Shami", "Kingchoke789#"),
     ]
 
     sample_entries = [

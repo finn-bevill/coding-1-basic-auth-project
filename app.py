@@ -6,9 +6,13 @@ from flask import Flask, request, redirect, url_for, render_template, session
 from database import get_db, init_db
 import bcrypt
 import re
+import logging
 
 app = Flask(__name__)
 app.secret_key = "supersecretkey"
+
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 init_db()
 
@@ -38,6 +42,7 @@ def login():
 
         if user and bcrypt.checkpw(password.encode("utf-8"), user["password"]):
             session["user"] = username
+            logging.info(f"User {username} logged in successfully")
             return redirect(url_for("dashboard"))
         else:
             error = "Incorrect username or password"
@@ -65,6 +70,7 @@ def register():
                     (username, hashed_pw)
                 )
                 conn.commit()
+                logging.info(f"New user {username} registered")
 
                 return redirect(url_for("login"))
             except:
@@ -89,6 +95,7 @@ def dashboard():
     entries = conn.execute(
         "SELECT * FROM entries"
     ).fetchall()
+    logging.info(f"User {session['user']} fetched {len(entries)} entries")
 
     # TODO: Close the connection
     conn.close()
@@ -131,6 +138,7 @@ def create():
                     (runner, school, grade, time)
                 )
                 conn.commit()
+                logging.info(f"Entry created: runner={runner}, school={school}, grade={grade}, time={time}")
 
                 return redirect(url_for("dashboard"))
             except:
