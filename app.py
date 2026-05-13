@@ -16,13 +16,6 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 init_db()
 
-# Add logout route
-@app.route("/logout")
-def logout():
-    session.clear()
-    logging.info("User logged out")
-    return redirect(url_for("login"))
-
 # ---------- PASSWORD VALIDATION ----------
 def is_valid_password(password):
     return (
