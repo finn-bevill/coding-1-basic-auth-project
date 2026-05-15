@@ -27,10 +27,10 @@ def seed_database():
     ]
 
     sample_entries = [
-        ("Liam Arnold", "L&N", "11th", "11.33 Seconds", "Liam Arnold"),
-        ("Blessing Shami", "L&N", "11th", "15.50 Years", "Blessing Shami"),
-        ("Vonde Tobin", "L&N", "11th", "13.5 Seconds", "VondeTobin"),
-        ("Niko Resendes", "L&N", "11th", "11.32 Seconds", "Niko Resendes"),
+        ("Liam Arnold", "L&N", "11th", "11.33 Seconds"),
+        ("Blessing Shami", "L&N", "11th", "15.50 Years"),
+        ("Vonde Tobin", "L&N", "11th", "13.5 Seconds"),
+        ("Niko Resendes", "L&N", "11th", "14.5 Seconds"),
     ]
     
     try:
