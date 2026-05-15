@@ -4,7 +4,7 @@
 
 When you finish, add your names and a demo video link here, then submit one link to your project repository.
 
-**Group Members:** (list all group members here)  
+**Group Members:** (list all group members here)  Liam Arnold, Vonde Tobin, Finn Bevill
 * [Demo Video (1 per group)](http://includeyourlinkhere)
 
 ---
