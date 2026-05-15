@@ -13,6 +13,10 @@
     <button type="submit">Add Entry</button>
 </form>
 
-<!-- TODO: Add a link back to dashboard -->
+{% if error %}
+    <p style="color: red;">{{ error }}</p>
+{% endif %}
+
+<a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
 
 {% endblock %}

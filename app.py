@@ -87,21 +87,12 @@ def dashboard():
     if "user" not in session:
         return redirect(url_for("login"))
 
-    # TODO: Connect to the database
     conn = get_db()
-
-    # TODO: Get all entries that belong to the logged-in user
-    # Example:
     entries = conn.execute(
-        "SELECT * FROM entries",
+        "SELECT * FROM entries WHERE user=?",
+        (session["user"],)
     ).fetchall()
-    # logging.info(f"User {session['user']} fetched {len(entries)} entries")
-
-    # TODO: Close the connection
     conn.close()
-
-    # TODO: Pass entries into your template
-    # Example:
     return render_template("dashboard.html", entries=entries, username=session["user"])
 
     # TEMPORARY (remove later)

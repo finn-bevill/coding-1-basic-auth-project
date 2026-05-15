@@ -6,20 +6,21 @@
 <!-- TODO: Create a form that sends a POST request -->
 
 <form method="POST">
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
 
-    <!-- TODO: Pre-fill title using entry data -->
-    <!-- Hint: value="{{ entry['title'] }}" -->
-    <input name="runner" placeholder="Runner" value="{{ entry['runner'] }}"><br>
-    <input name="school" placeholder="School" value="{{ entry['school] }}"><br>
-    <input name="grade" placeholder="Grade" value="{{ entry['grade'] }}"><br>
-    <input name="time" placeholder="Time" value="{{ entry['time'] }}"><br>
-    <button type="submit">Update Entry</button>
-    <!-- TODO: Pre-fill content using entry data -->
-
-    <!-- TODO: Add submit button -->
-
+    <label>Runner</label><br>
+    <input name="runner" value="{{ entry['runner'] }}" placeholder="Runner"><br>
+    <label>School</label><br>
+    <input name="school" value="{{ entry['school'] }}" placeholder="School"><br>
+    <label>Grade</label><br>
+    <input name="grade" value="{{ entry['grade'] }}" placeholder="Grade"><br>
+    <label>Time</label><br>
+    <input name="time" value="{{ entry['time'] }}" placeholder="Time"><br>
+    <button type="submit">Save Changes</button>
 </form>
 
-<!-- TODO: Add a link back to dashboard -->
+<a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
 
 {% endblock %}
